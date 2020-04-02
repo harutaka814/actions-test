@@ -24,7 +24,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - uses: actions/checkout@v1
-      - if: false
+    steps:
+      - if: 'test' == 'test1'
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -32,6 +33,13 @@ jobs:
       - name: npm install
         run: |
           npm ci
+      - name: lint
+        run: |
+          npm run lint
+        env:
+          CI: true
+    steps:
+      - if: 'test' == 'test'
       - name: lint
         run: |
           npm run lint
