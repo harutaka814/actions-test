@@ -12,9 +12,6 @@ jobs:
         node-version: [12.x]
 
     steps:
-      - name: actions test
-        run: |
-          echo "${{github.event_name}}"
       - name: Get NPM cache directrory
         id: npm-cache
         run: | 
@@ -23,7 +20,7 @@ jobs:
         uses: actions/cache@v1.1.0
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
           restore-keys: |
             ${{ runner.os }}-node-
       - uses: actions/checkout@v1
