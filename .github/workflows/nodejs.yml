@@ -14,8 +14,8 @@ jobs:
     steps:
       - name: actions test
         run: |
-          echo "${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}"
-          echo "${{ hashFiles('**/yarn.lock')) }}"
+          echo "${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}"
+          echo "${{ hashFiles('**/package-lock.json')) }}"
       - name: Get NPM cache directrory
         id: npm-cache
         run: | 
@@ -24,7 +24,7 @@ jobs:
         uses: actions/cache@v1.1.0
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+          key: ${{ runner.os }}-node-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
           restore-keys: |
             ${{ runner.os }}-node-
       - uses: actions/checkout@v1
