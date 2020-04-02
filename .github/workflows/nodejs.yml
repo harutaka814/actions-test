@@ -24,7 +24,7 @@ jobs:
         run: | 
           echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache NPM
-        uses: actions/cache@v1.1.0
+        uses: actions/cache@v1
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
           key: ${{ runner.os }}-node-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
@@ -45,6 +45,13 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           yarn run build:prod
+      - name: actions test2
+        run: |
+          echo "${{ hashFiles('./package-lock.json') }}"
+          echo "${{ hashFiles('../../package-lock.json') }}"
+          echo "${{ hashFiles('/package-lock.json') }}"
+          echo "${{ hashFiles('../../**/package-lock.json') }}"
+          echo "${{ hashFiles(format('{0}{1}', github.workspace, './package-lock.json')) }}"
       - name: test
         if: github.event_name == 'pull_request'
         run: |
