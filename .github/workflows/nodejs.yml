@@ -33,7 +33,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: npm install
         #if: steps.cache-exist.outputs.cache == false
-        if: github.event_name == "text1"
+        if: github.event_name == 'text1'
         run: |
           npm ci
       - name: lint
