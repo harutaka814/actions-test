@@ -12,7 +12,6 @@ jobs:
         node-version: [12.x]
 
     steps:
-      - if: 'test' == 'test1'
       - name: Get NPM cache directrory
         id: npm-cache
         run: | 
@@ -30,6 +29,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: npm install
+        if: 'test' == 'test1'
         run: |
           npm ci
       - name: lint
