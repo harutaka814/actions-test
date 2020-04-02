@@ -17,13 +17,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: actions test
-        run: |
-          echo "${{ hashFiles('./package-lock.json') }}"
-          echo "${{ hashFiles('../../package-lock.json') }}"
-          echo "${{ hashFiles('/package-lock.json') }}"
-          echo "${{ hashFiles('../../**/package-lock.json') }}"
-          echo "${{ hashFiles(format('{0}{1}', github.workspace, './package-lock.json')) }}"
       - name: Get NPM cache directrory
         id: npm-cache
         run: | 
@@ -32,7 +25,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
+          key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json')) }}
           restore-keys: |
             ${{ runner.os }}-node-
       - name: npm install
@@ -45,13 +38,6 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           yarn run build:prod
-      - name: actions test2
-        run: |
-          echo "${{ hashFiles('./package-lock.json') }}"
-          echo "${{ hashFiles('../../package-lock.json') }}"
-          echo "${{ hashFiles('/package-lock.json') }}"
-          echo "${{ hashFiles('../../**/package-lock.json') }}"
-          echo "${{ hashFiles(format('{0}{1}', github.workspace, './package-lock.json')) }}"
       - name: test
         if: github.event_name == 'pull_request'
         run: |
