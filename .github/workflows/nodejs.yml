@@ -12,6 +12,9 @@ jobs:
         node-version: [12.x]
 
     steps:
+      - name: actions test
+        run: |
+          echo "${{github.event_name}}"
       - name: Get NPM cache directrory
         id: npm-cache
         run: | 
