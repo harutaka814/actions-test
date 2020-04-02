@@ -13,6 +13,7 @@ jobs:
 
     steps:
       - name: Get NPM cache directrory
+        if: 'test' == 'test1'
         id: npm-cache
         run: | 
           echo "::set-output name=dir::$(npm config get cache)"
@@ -29,7 +30,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: npm install
-        if: 'test' == 'test1'
         run: |
           npm ci
       - name: lint
