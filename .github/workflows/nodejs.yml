@@ -13,23 +13,26 @@ jobs:
 
     steps:
       - name: Get NPM cache directrory
-        if: github.event_name == 'test1'
         id: npm-cache
         run: | 
           echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache NPM
+        id: cache-exist
         uses: actions/cache@v1.1.0
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
           key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+        run: |
+          "::set-output name=cache::${{ cache-hit:Linux-node- }}
       - uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
       - name: npm install
+        if: steps.cache-exist.outputs.cache == false
         run: |
           npm ci
       - name: lint
