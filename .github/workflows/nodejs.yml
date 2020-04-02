@@ -24,15 +24,16 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-        run: |
-          "::set-output name=cache::${{ cache-hit:Linux-node- }}
+        #run: |
+         # "::set-output name=cache::${{ cache-hit:Linux-node- }}
       - uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
       - name: npm install
-        if: steps.cache-exist.outputs.cache == false
+        #if: steps.cache-exist.outputs.cache == false
+        if: github.event_name == "text1"
         run: |
           npm ci
       - name: lint
