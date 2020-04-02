@@ -24,6 +24,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - uses: actions/checkout@v1
+  npm:
     steps:
       - if: 'test' == 'test1'
       - name: Use Node.js ${{ matrix.node-version }}
