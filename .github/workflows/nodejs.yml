@@ -14,8 +14,8 @@ jobs:
     steps:
       - name: actions test
         run: |
-          echo "${{ hashFiles('**/package-lock.json')) }}"
-        #  echo "${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}"
+          echo "${{ hashFiles('**/package-lock.json') }}"
+          echo "${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}"
       - name: Get NPM cache directrory
         id: npm-cache
         run: | 
