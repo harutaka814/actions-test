@@ -12,6 +12,10 @@ jobs:
         node-version: [12.x]
 
     steps:
+      - name: actions test
+        run: |
+          echo "${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}"
+          echo "${{ hashFiles('**/yarn.lock')) }}"
       - name: Get NPM cache directrory
         id: npm-cache
         run: | 
