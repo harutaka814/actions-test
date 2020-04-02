@@ -17,10 +17,10 @@ jobs:
         run: | 
           echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache NPM
-        uses: actions/cache@v1.1.0
+        uses: actions/cache@v1
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
       - uses: actions/checkout@v1
