@@ -1,6 +1,6 @@
 name: Node CI
 
-on: [push, pull-request]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -35,11 +35,11 @@ jobs:
         run: |
           npm run lint
       - name: build:prod
-        if: github.event_name == 'pull-request'
+        if: github.event_name == 'pull_request'
         run: |
           yarn run build:prod
       - name: test
-        if: github.event_name == 'pull-request'
+        if: github.event_name == 'pull_request'
         run: |
           yarn run test -- --watch=false --browsers=ChromeHeadless
         env:
